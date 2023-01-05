@@ -7,7 +7,7 @@ class DefaultParams():
         self._beta2 = np.array([2, 1]).reshape(-1, 1)
         self._n = 100
         self._omega = np.array([[0.1, -0.05], 
-                               [-0.05, 0.2],])
+                                [-0.05, 0.2]])
     @property
     def beta1(self):
         return self._beta1
@@ -24,8 +24,7 @@ class DefaultParams():
 
 class Sampler(metaclass=ABCMeta):
     def __init__(self, SUR_data:dict) -> None:
-        self.data = SUR_data
-
+        self.SUR_data = SUR_data
     @abstractclassmethod
     def sample(self):
         pass
@@ -57,5 +56,4 @@ def generate_SUR(params:DefaultParams=DefaultParams()):
     SUR_data['x2'] = x2
     SUR_data['Y'] = Y
     SUR_data['U'] = U
-    
     return SUR_data
