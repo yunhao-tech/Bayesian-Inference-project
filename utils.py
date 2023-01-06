@@ -33,7 +33,7 @@ class Sampler(metaclass=ABCMeta):
 def generate_SUR(params:DefaultParams=DefaultParams()):
     n = params.n
     omega = params.omega
-    w11, w12, w21, w22 = omega[0,0], omega[0,1], omega[1,0], omega[1,1]
+
     beta = np.concatenate((params.beta1, params.beta2), axis=0)
 
     x1 = np.random.rand(n,2) * 10 - 5
@@ -42,10 +42,7 @@ def generate_SUR(params:DefaultParams=DefaultParams()):
                 [x1,              np.zeros((n, 2))],
                 [np.ones((n, 2)), x2              ],
     ])
-    Omega_combined = np.block([
-                [w11*np.eye(n), w12*np.eye(n)],
-                [w21*np.eye(n), w22*np.eye(n)],
-    ])
+    Omega_combined = np.kron(omega, np.eye(n))
     U = np.random.multivariate_normal(mean=np.zeros(2*n), cov=Omega_combined).reshape(-1,1)
     Y = X @ beta + U
     assert Y.shape == (2*n, 1)
@@ -55,5 +52,4 @@ def generate_SUR(params:DefaultParams=DefaultParams()):
     SUR_data['x1'] = x1
     SUR_data['x2'] = x2
     SUR_data['Y'] = Y
-    SUR_data['U'] = U
     return SUR_data
