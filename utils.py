@@ -2,12 +2,13 @@ from abc import ABCMeta, abstractclassmethod
 import numpy as np
 
 class DefaultParams():
-    def __init__(self) -> None:
-        self._beta1 = np.array([3, -2]).reshape(-1, 1)
-        self._beta2 = np.array([2, 1]).reshape(-1, 1)
-        self._n = 100
-        self._omega = np.array([[0.1, -0.05], 
-                                [-0.05, 0.2]])
+    def __init__(self, beta1 = np.array([3, -2]) , beta2 = np.array([2, 1]), omega = np.array([[0.1, -0.05], 
+                [-0.05, 0.2]]), n = 100 ) -> None:
+        self._beta1 = beta1.reshape(-1,1)
+        self._beta2 = beta2.reshape(-1,1) 
+        self._n = n 
+        self._omega = omega.reshape(2,2) 
+        
     @property
     def beta1(self):
         return self._beta1
@@ -20,7 +21,14 @@ class DefaultParams():
     @property
     def omega(self):
         return self._omega
-
+    
+    def print(self):
+        print("beta1 = ", self._beta1.reshape(-1))
+        print("beta2 = ", self._beta2.reshape(-1))
+        print("omega = ", self._omega)
+        print("number of simulations for each model = ", self._n)
+    
+        
 
 class Sampler(metaclass=ABCMeta):
     def __init__(self, SUR_data:dict) -> None:
