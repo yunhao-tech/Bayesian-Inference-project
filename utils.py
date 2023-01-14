@@ -2,8 +2,8 @@ from abc import ABCMeta, abstractclassmethod
 import numpy as np
 
 class DefaultParams():
-    def __init__(self, beta1 = np.array([3, -2]) , beta2 = np.array([2, 1]), omega = np.array([[0.1, -0.05], 
-                [-0.05, 0.2]]), n = 100 ) -> None:
+    def __init__(self, beta1 = np.array([3, -2]) , beta2 = np.array([2, 1]), omega = np.array([[0.3, -0.15], 
+                [-0.15, 0.2]]), n = 100 ) -> None:
         self._beta1 = beta1.reshape(-1,1)
         self._beta2 = beta2.reshape(-1,1) 
         self._n = n 
